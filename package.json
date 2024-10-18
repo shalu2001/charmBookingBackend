@@ -1,0 +1,23 @@
+{
+  "name": "charmbooking",
+  "version": "1.0.0",
+  "description": "SalonBookingSystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shalu2001/charmBookingBackend.git"
+  },
+  "author": "shaluDanthanarayana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shalu2001/charmBookingBackend/issues"
+  },
+  "homepage": "https://github.com/shalu2001/charmBookingBackend#readme",
+  "dependencies": {
+    "express": "^4.21.0",
+    "mongodb": "6.9"
+  }
+}
