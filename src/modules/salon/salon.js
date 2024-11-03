@@ -55,5 +55,5 @@ const salonSchema = new mongoose.Schema({
   },
 });
 
-const salon = new mongoose.model("salon", salonSchema);
-export default salon;
+const Salon = new mongoose.model("Salon", salonSchema);
+export default Salon;
