@@ -5,7 +5,6 @@ import registerCustomer from "./service.js";
 const  registerCustomerController = async (req, res) => {
     try{
         const { firstName, lastName, dateofBirth, userName, email, password } = req.body;
-        // console.log(req.body);
         // Check if the required fields are provided
         if (!firstName || !lastName || !dateofBirth || !userName || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
