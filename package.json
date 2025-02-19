@@ -20,6 +20,7 @@
   "homepage": "https://github.com/shalu2001/charmBookingBackend#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
     "mongodb": "6.9",
     "mongoose": "^8.7.2"

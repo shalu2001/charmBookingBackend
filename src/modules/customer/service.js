@@ -6,7 +6,6 @@ const registerCustomer = async (customerData) => {
         const { firstName, lastName, dateofBirth, userName, email, password } = customerData;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        console.log(hashedPassword);
         const customer = new Customer({
             firstName,
             lastName,
