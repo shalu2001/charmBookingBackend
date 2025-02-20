@@ -21,4 +21,22 @@ const registerCustomer = async (customerData) => {
     }
 }
 
-export default registerCustomer;
+const loginCustomer = async (email,userName, password) => {
+    try {
+        // Find the customer by email or username
+        const customer = await Customer.findOne({ $or: [{ email }, { userName }] }).exec();
+        if (!customer) {
+            return null;
+        }
+        const isMatch = await bcrypt.compare(password, customer.password);
+        if (!isMatch) {
+            return null;
+        }
+        return customer;
+    }
+    catch (err) {
+        throw new Error(err.message);
+    }
+}
+
+export default {registerCustomer, loginCustomer};

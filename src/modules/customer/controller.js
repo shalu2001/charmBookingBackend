@@ -1,6 +1,7 @@
 import express from "express";
 import Customer from "./customer.js";
 import registerCustomer from "./service.js";
+import loginCustomer from "./service.js";
 
 const  registerCustomerController = async (req, res) => {
     try{
@@ -25,4 +26,25 @@ const  registerCustomerController = async (req, res) => {
     }
 };
 
-export default registerCustomerController;
+const loginCustomerController = async (req, res) => {
+    try {
+        const { email,userName, password } = req.body;
+        console.log(email
+            ,userName
+            ,password);
+        if ((!email && !userName) || !password) {
+            return res.status(400).json({ error: { message: "All fields are required" } });
+        }
+        const customer = await loginCustomer(email,userName, password);
+        if (!customer) {
+            return res.status(401).json({ error: { message: "Invalid credentials" } });
+        }
+
+        res.status(200).json({ customer, message: 'Customer logged in successfully' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: { message: "Internal server error" } });
+    }
+};
+
+export default {registerCustomerController, loginCustomerController};
