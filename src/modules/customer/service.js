@@ -1,7 +1,7 @@
 import Customer from './customer.js';
 import bcrypt from "bcrypt";
 
-const registerCustomer = async (customerData) => {
+export const registerCustomer = async (customerData) => {
     try {
         const { firstName, lastName, dateofBirth, userName, email, password } = customerData;
         const salt = await bcrypt.genSalt(10);
@@ -21,10 +21,10 @@ const registerCustomer = async (customerData) => {
     }
 }
 
-const loginCustomer = async (email,userName, password) => {
+export const loginCustomer = async (email, password) => {
     try {
         // Find the customer by email or username
-        const customer = await Customer.findOne({ $or: [{ email }, { userName }] }).exec();
+        const customer = await Customer.findOne({email}).exec();
         if (!customer) {
             return null;
         }
@@ -39,4 +39,3 @@ const loginCustomer = async (email,userName, password) => {
     }
 }
 
-export default {registerCustomer, loginCustomer};

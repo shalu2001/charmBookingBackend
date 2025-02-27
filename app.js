@@ -3,8 +3,10 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import salonsRouter from './src/modules/salon/route.js';
 import customerRouter from './src/modules/customer/route.js';
+import dotenv from 'dotenv';
 const app = express();
 const port = 3000;
+dotenv.config();
 
 app.use(cors());
 // Middleware to parse JSON bodies

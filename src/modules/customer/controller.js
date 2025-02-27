@@ -1,9 +1,9 @@
-import express from "express";
 import Customer from "./customer.js";
-import registerCustomer from "./service.js";
-import loginCustomer from "./service.js";
+import {registerCustomer} from "./service.js";
+import {loginCustomer} from "./service.js";
+import jwt from 'jsonwebtoken';
 
-const  registerCustomerController = async (req, res) => {
+export const  registerCustomerController = async (req, res) => {
     try{
         const { firstName, lastName, dateofBirth, userName, email, password } = req.body;
         // Check if the required fields are provided
@@ -26,25 +26,28 @@ const  registerCustomerController = async (req, res) => {
     }
 };
 
-const loginCustomerController = async (req, res) => {
+export const loginCustomerController = async (req, res) => {
     try {
-        const { email,userName, password } = req.body;
-        console.log(email
-            ,userName
-            ,password);
-        if ((!email && !userName) || !password) {
+        const { email, password } = req.body;
+        if (!email || !password) {
             return res.status(400).json({ error: { message: "All fields are required" } });
         }
-        const customer = await loginCustomer(email,userName, password);
+        const customer = await loginCustomer(email, password);
         if (!customer) {
             return res.status(401).json({ error: { message: "Invalid credentials" } });
         }
 
-        res.status(200).json({ customer, message: 'Customer logged in successfully' });
+        //Generaate token
+        const token = jwt.sign({
+            id: customer._id,
+            email: customer.email,
+            role: customer.role
+        }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        
+        res.status(200).json({ customer,token, message: 'Customer logged in successfully' });
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: { message: "Internal server error" } });
     }
 };
 
-export default {registerCustomerController, loginCustomerController};
